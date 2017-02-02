@@ -10,8 +10,7 @@ echo -- "--- BEGIN OWNTRACKS LAUNCHER ---"
 mkdir -p /owntracks/recorder/store
 mkdir -p /owntracks/recorder/store/last
 
-chown -R owntracks:owntracks /owntracks/recorder
-/usr/sbin/ot-recorder --initialize
+/usr/local/sbin/ot-recorder --initialize
 
 # Put ot-recorder defaults in volume
 if [ ! -f /owntracks/etc/default/ot-recorder ]; then
@@ -21,4 +20,4 @@ fi
 # copy ot-recorder defaults back to /etc/default/
 cp /owntracks/etc/default/ot-recorder /etc/default/ot-recorder
 
-exec /usr/sbin/ot-recorder --http-host 0.0.0.0
+exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0

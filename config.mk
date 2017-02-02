@@ -1,11 +1,23 @@
+# Select features you want. Default is fine for most installations
+
+# Uncomment the following for FreeBSD; this assumes:
+#
+#	cd /usr/ports/databases/lmdb; make config; make install clean
+#       cd /usr/ports/ftp/curl; make config; make install clean
+#       cd /usr/ports/devel/libconfig; make config; make install clean
+#
+# CC      = clang
+# CFLAGS += -I/usr/local/include
+# MORELIBS += -L /usr/local/lib
+# -- end FreeBSD
 
 INSTALLDIR = /usr/local
 
+# Do you want support for MQTT?
+WITH_MQTT ?= yes
+
 # Do you want recorder's built-in HTTP REST API?
 WITH_HTTP ?= yes
-
-# Do you want to use reverse-geo caching? (Highly recommended)
-WITH_LMDB ?= yes
 
 # Do you have Lua libraries installed and want the Lua hook integration?
 WITH_LUA ?= yes
@@ -16,9 +28,9 @@ WITH_PING ?= yes
 # Do you want support for removing data via the API? (Dangerous)
 WITH_KILL ?= no
 
-# Do you want R_only support? (Probably not; this is for Hosted)
-# If you set this to `yes', WITH_LMDB will be set to yes
-WITH_RONLY ?= no
+# Do you want support for payload encryption with libsodium?
+# This requires WITH_LMDB to be configured.
+WITH_ENCRYPT ?= yes
 
 # Do you require support for OwnTracks Greenwich firmware?
 WITH_GREENWICH ?= no
@@ -50,15 +62,21 @@ GHASHPREC = 7
 # yes or no
 JSON_INDENT ?= no
 
+# Location of optional default configuration file
+CONFIGFILE = /etc/default/ot-recorder
+
 # Optionally specify the path to the Mosquitto libs, include here
 MOSQUITTO_INC = -I/usr/include
 MOSQUITTO_LIB = -L/usr/lib
-MORELIBS = -lssl
+MORELIBS += # -lssl
 
 # If WITH_LUA is configured, specify compilation and linkage flags
 # for Lua either manually or using pkg-config. This may require tweaking,
 # and in particular could require you to add the lua+version (e.g lua-5.2)
 # to both pkg-config invocations
 
-LUA_CFLAGS = `pkg-config --cflags lua5.2`
-LUA_LIBS   = `pkg-config --libs lua5.2`
+LUA_CFLAGS = `pkg-config --cflags lua`
+LUA_LIBS   = `pkg-config --libs lua`
+
+SODIUM_CFLAGS = `pkg-config --cflags libsodium`
+SODIUM_LIBS   = `pkg-config --libs libsodium`

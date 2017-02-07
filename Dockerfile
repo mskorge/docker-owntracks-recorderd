@@ -22,7 +22,7 @@ COPY recorder-launcher.sh /usr/local/bin/recorder-launcher.sh
 
 COPY recorder-health.sh /usr/local/bin/recorder-health.sh
 RUN  apk add curl python
-HEALTHCHECK --interval=5m --timeout=30s CMD /usr/local/sbin/recorder-health.sh
+HEALTHCHECK --interval=5m --timeout=30s CMD /usr/local/bin/recorder-health.sh
 
 RUN	mkdir -p -m 775 /owntracks/recorder/store && \
 	chmod 755 /usr/local/bin/recorder-launcher.sh /usr/local/bin/recorder-health.sh

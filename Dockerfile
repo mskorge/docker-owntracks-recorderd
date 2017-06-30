@@ -1,27 +1,25 @@
-FROM alpine:3.5
+FROM alpine:3.6
 LABEL version="edge" description="OwnTracks Recorder"
 LABEL authors="Francesco Vezzoli <fvezzoli@iz2vtw.net>"
 
-COPY config.mk /recorder-master/config.mk
+ENV VERSION=0.7.2
 
-RUN	apk update && \
-	apk add build-base mosquitto-dev lua-dev libsodium-dev curl-dev libconfig-dev && \
-	apk add ca-certificates && update-ca-certificates && apk add openssl && \
-	wget https://codeload.github.com/owntracks/recorder/tar.gz/master && \
-	tar xzf master && rm master && \
-	cd recorder-master && \
+RUN	apk add --no-cache build-base mosquitto-dev lua-dev libsodium-dev curl-dev libconfig-dev ca-certificates curl python openssl && \
+	update-ca-certificates && \
+	wget -O recorder.tar.gz https://github.com/owntracks/recorder/archive/$VERSION.tar.gz && \
+	tar xzf recorder.tar.gz && \
+	cd recorder-$VERSION && \
+	sed -e 's/WITH_LUA ?= no/WITH_LUA ?= yes/' -e 's/WITH_ENCRYPT ?= no/WITH_ENCRYPT ?= yes/' -e 's/STORAGEDEFAULT = .*/STORAGEDEFAULT = \/owntracks\/recorder\/store/' config.mk.in > config.mk && \
 	make && make install && \
-	cd .. && rm -r recorder-master
+	cd .. && rm -r recorder*
 
 # data volume
 VOLUME /owntracks
 
 COPY ot-recorder.default /etc/default/ot-recorder
-
 COPY recorder-launcher.sh /usr/local/bin/recorder-launcher.sh
-
 COPY recorder-health.sh /usr/local/bin/recorder-health.sh
-RUN  apk add curl python
+
 HEALTHCHECK --interval=5m --timeout=30s CMD /usr/local/bin/recorder-health.sh
 
 RUN	mkdir -p -m 775 /owntracks/recorder/store && \

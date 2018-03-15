@@ -1,4 +1,4 @@
-FROM alpine:3.6
+FROM alpine:3.7
 LABEL version="edge" description="OwnTracks Recorder"
 LABEL authors="Francesco Vezzoli <fvezzoli@iz2vtw.net>"
 

@@ -2,7 +2,7 @@ FROM alpine:3.7
 LABEL version="edge" description="OwnTracks Recorder"
 LABEL authors="Francesco Vezzoli <fvezzoli@iz2vtw.net>"
 
-ENV VERSION=0.7.5
+ENV VERSION=0.7.9
 
 RUN	apk add --no-cache build-base mosquitto-dev lua-dev libsodium-dev curl-dev libconfig-dev ca-certificates curl python openssl && \
 	update-ca-certificates && \

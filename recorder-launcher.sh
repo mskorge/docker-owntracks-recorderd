@@ -6,7 +6,6 @@ set -e
 
 echo -- "--- BEGIN OWNTRACKS LAUNCHER ---"
 
-
 mkdir -p /owntracks/recorder/store
 mkdir -p /owntracks/recorder/store/last
 
@@ -20,4 +19,4 @@ fi
 # copy ot-recorder defaults back to /etc/default/
 cp /owntracks/etc/default/ot-recorder /etc/default/ot-recorder
 
-exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0
+exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0 ${OTR_LUA:+"--lua-script $OTR_LUA"}

@@ -36,7 +36,7 @@ RUN	set -ex \
 	&& sed -e 's/WITH_LUA ?= no/WITH_LUA ?= yes/' \
            -e 's/WITH_ENCRYPT ?= no/WITH_ENCRYPT ?= yes/' \
            -e 's/STORAGEDEFAULT = .*/STORAGEDEFAULT = \/owntracks\/recorder\/store/' \
-           -e 's/CONFIGFILE = .*/CONFIGFILE = \/owntracks\/ot-recorder' \
+           -e 's/CONFIGFILE = .*/CONFIGFILE = \/owntracks\/ot-recorder/' \
            config.mk.in > config.mk \
 	&& make \
     && make install \

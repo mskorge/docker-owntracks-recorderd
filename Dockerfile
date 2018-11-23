@@ -43,7 +43,7 @@ RUN	set -ex \
     && apk --purge del .build-deps \
 	&& cd / && rm -r /tmp/* \
     && mkdir -p -m 775 /owntracks/recorder/store \
-    && chmod 755 /usr/local/bin/recorder-launcher.sh /usr/local/bin/recorder-health.sh
+    && chmod 755 /app/recorder-launcher.sh /app/recorder-health.sh
 
 # data volume
 VOLUME /owntracks

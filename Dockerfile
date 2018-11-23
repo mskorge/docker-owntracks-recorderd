@@ -51,4 +51,4 @@ VOLUME /owntracks
 HEALTHCHECK --interval=5m --timeout=30s CMD /app/recorder-health.sh
 
 EXPOSE 8083
-CMD ["/usr/local/bin/recorder-launcher.sh"]
+CMD ["/app/recorder-launcher.sh"]

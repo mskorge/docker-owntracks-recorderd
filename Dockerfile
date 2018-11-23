@@ -21,6 +21,10 @@ RUN	set -ex \
             libsodium \
             libcurl \
             libconfig \
+    # Add run dependencies, keep after build
+    && apk --no-cache add --virtual .health-deps \
+            curl \
+            jq \
     && cd /tmp \
 	&& wget -O recorder.tar.gz https://github.com/owntracks/recorder/archive/$VERSION.tar.gz \
 	&& tar xzf recorder.tar.gz \

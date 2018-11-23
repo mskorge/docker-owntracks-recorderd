@@ -16,4 +16,4 @@ if [ ! -f /owntracks/ot-recorder ]; then
 fi
 
 echo -- "--- LAUNCH OWNTRACKS RECORDER ---"
-exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0 ${OTR_LUA:+"\-\-lua-script $OTR_LUA"}
+exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0 ${OTR_LUA:+--lua-script "$OTR_LUA"}

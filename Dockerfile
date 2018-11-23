@@ -1,5 +1,5 @@
 FROM alpine:3.8
-LABEL version="edge" description="OwnTracks Recorder"
+LABEL version="0.7.9" description="OwnTracks Recorder"
 LABEL authors="Francesco Vezzoli <fvezzoli@iz2vtw.net>"
 
 ENV VERSION=0.7.9

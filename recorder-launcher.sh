@@ -5,18 +5,15 @@
 set -e
 
 echo -- "--- BEGIN OWNTRACKS LAUNCHER ---"
-
 mkdir -p /owntracks/recorder/store
 mkdir -p /owntracks/recorder/store/last
 
+echo -- "--- INIT OWNTRACKS RECORDER ---"
 /usr/local/sbin/ot-recorder --initialize
-
-# Put ot-recorder defaults in volume
-if [ ! -f /owntracks/etc/default/ot-recorder ]; then
-    mkdir -p /owntracks/etc/default/
-	mv /etc/default/ot-recorder /owntracks/etc/default/ot-recorder
+# Put ot-recorder defaults in volume if not exist
+if [ ! -f /owntracks/ot-recorder ]; then
+	mv /etc/default/ot-recorder /owntracks/ot-recorder
 fi
-# copy ot-recorder defaults back to /etc/default/
-cp /owntracks/etc/default/ot-recorder /etc/default/ot-recorder
 
-exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0 ${OTR_LUA:+"--lua-script $OTR_LUA"}
+echo -- "--- LAUNCH OWNTRACKS RECORDER ---"
+exec /usr/local/sbin/ot-recorder --http-host 0.0.0.0 ${OTR_LUA:+"\-\-lua-script $OTR_LUA"}
